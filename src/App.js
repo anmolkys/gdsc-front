@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Recorder from "./Components/Recorder";
+import Live from "./Components/Live";
+import "./App.css"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+export default function App(){
+
+  const [responseData, setResponseData] = useState({file:"",id:"",text:"",todos:"",url:""});
+
+  //get Data from Child
+  const handleResponse = (data) => {
+    setResponseData(data);
+  }
+  
+  return(
+    <div className="main">
+      <Live></Live>
+      <br />
+      <Recorder onResponse={handleResponse}></Recorder>
+      <ul>
+        <li>{responseData.text}</li>
+        <li>{responseData.todos}</li>
+        <li>{responseData.url}</li>
+      </ul>
     </div>
-  );
+  )
 }
-
-export default App;
