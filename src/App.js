@@ -1,4 +1,6 @@
 import React, { useState , useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import Recorder from "./Components/Recorder";
 import Live from "./Components/Live";
 import "./App.css"
@@ -13,6 +15,13 @@ export default function App(){
   const [responseData, setResponseData] = useState({file:"",id:"",text:"",todos:"",url:""});
   const [code,setCode] = useState("")
   const [token,setToken] = useState("")
+
+
+  const navigate = useNavigate();
+  
+  const handleSummary = () => {
+    navigate('/summary'); 
+  };
 
   //get Data from Child
   const handleResponse = (data) => {
@@ -73,6 +82,7 @@ export default function App(){
   return(
     <div className="main">
       <Live></Live>
+      <button onClick={handleSummary}>Summary</button>
       <br />
       <Recorder onResponse={handleResponse}></Recorder>
       <h3>{token ? "Authorized" : "Error Authorizing"}</h3>
