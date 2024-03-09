@@ -4,11 +4,17 @@ import axios from "axios";
 export default function Live(){
 
     const [serverStatus,setServerStatus] = useState("")
+    const baseLink = "http://localhost:5500"
     useEffect(()=>{
         const status = async () =>{
         try {
-          const response = await axios.get('https://gen-vxqd.onrender.com/live');  
-          setServerStatus(`↯ Server Version ${response.data.version} is Live`);
+          let response = await axios.get(`${baseLink}/ping`);  
+          if(response){
+            setServerStatus(`↯ Server version ${response.data.version} is Live`);
+          }
+          else{
+            setServerStatus("Server Overloaded , Try Again Later TT")
+          }
         } catch (error) {
           setServerStatus("Cannot Connect , Try Again Later TT");
         }

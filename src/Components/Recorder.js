@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { AudioRecorder ,  useAudioRecorder  } from 'react-audio-voice-recorder';
 import axios from "axios";
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 
 
 export default function Recorder({ onResponse }){
 
-
+    const baseLink = "http://localhost:5500"
     const [status,setStatus] = useState("")
+    const [notes,setNotes] = useState("");
 
   const recorderControls = useAudioRecorder(
     {
@@ -30,18 +32,20 @@ export default function Recorder({ onResponse }){
     const randomString = Math.random().toString(36).substring(7);
     const filename = `audio_${timestamp}_${randomString}.wav`
     console.log(filename)
-    const url = `https://gen-vxqd.onrender.com/live/23/upload/${filename}`;
+    const url = `${baseLink}/upload/`;
     const formData = new FormData();
-    formData.append('audio', blob, filename);
+    formData.append('file', blob);
     console.log(`audio_${Date.now()}.wav`)
     const headers = {
         'Content-Type': 'multipart/form-data',
     };
     try{
-        setStatus("Trying Uploading")
+        setStatus("Getting Text , Please Wait")
         const response = await axios.post(url, formData, { headers });
         console.log('File uploaded successfully:', response.data);
         onResponse(response.data)
+        setNotes(documentToReactComponents(response.data.notes))
+        //setNotes(response.data.notes)
         setStatus("Uploaded , Check Console .")
     }
     catch(error){
@@ -63,8 +67,8 @@ export default function Recorder({ onResponse }){
     <br />
     <h3>{status}</h3>
     <br />
-    <button onClick={recorderControls.stopRecording}>Stop recording</button>
     <br />
+    <p>{notes}</p>
   </div>
   )
 }
