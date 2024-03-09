@@ -4,7 +4,7 @@ import axios from "axios";
 export default function Live(){
 
     const [serverStatus,setServerStatus] = useState("")
-    const baseLink = "http://localhost:5500"
+    const baseLink = "https://applepie-5gox.onrender.com"
     useEffect(()=>{
         const status = async () =>{
         try {

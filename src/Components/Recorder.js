@@ -7,7 +7,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 export default function Recorder({ onResponse }){
 
-    const baseLink = "http://localhost:5500"
+    const baseLink = "https://applepie-5gox.onrender.com"
     const [status,setStatus] = useState("")
     const [notes,setNotes] = useState("");
 
