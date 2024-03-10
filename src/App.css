@@ -23,7 +23,7 @@ body {
   width: 50px;
   border-radius: 30%;
   margin-top: 10px;
-  margin-left: -30px;
+  margin-left: -82px;
   margin-bottom: 1rem;
   cursor: pointer;
   background-color: #5f8ebb; /* Adjusted background color */
@@ -93,4 +93,23 @@ body {
   font-size: larger;
   text-align: left;
   padding-left:5rem;
+  padding-right: 3rem;
+}
+
+.speech::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgb(128,152,143);
+	background-color: #F5F5F5;
+}
+
+.speech::-webkit-scrollbar
+{
+	width: 7px;
+	background-color: #F5F5F5;
+}
+
+.speech::-webkit-scrollbar-thumb
+{
+	background-color: rgb(128,152,143);
+	border: 1px solid #555555;
 }
