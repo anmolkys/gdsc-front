@@ -22,10 +22,10 @@ export default function Recorder({ onResponse }) {
 
   const addAudioElement = (blob) => {
     const url = URL.createObjectURL(blob);
-    const audio = document.createElement('audio');
-    audio.src = url;
-    audio.controls = true;
-    document.body.appendChild(audio);
+    // const audio = document.createElement('audio');
+    // audio.src = url;
+    // audio.controls = true;
+    // document.body.appendChild(audio);
     uploadAudio(blob);
   };
 
@@ -66,13 +66,14 @@ export default function Recorder({ onResponse }) {
     }
     
     let todossStartIndex = notes.indexOf("**Todos and Tasks:**");
-    if (todosStartIndex !== -1) {
+    if (todossStartIndex !== -1) {
       const todosSection = notes.substring(todossStartIndex);
       const todosArray = todosSection.split('\n').filter(line => line.trim() !== '');
       const slicedTodos = todosArray.slice(1); // Exclude the '**Todos:**' line itself
       setTodos(slicedTodos);
     }
   };
+  
 
   return (
     <div className="recorder">

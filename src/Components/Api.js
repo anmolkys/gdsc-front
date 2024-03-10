@@ -93,7 +93,7 @@ export default function Api() {
         {token ? (
           <p>Authorization Success</p>
         ) : (
-          <button onClick={handleAuthorize} disabled={token}>Authorize with Trello</button>
+          <button onClick={handleAuthorize} disabled={token} className="voice-record">Sync</button>
         )}
       </div>
     </>

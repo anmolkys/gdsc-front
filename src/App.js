@@ -21,11 +21,8 @@ export default function App(){
     <>
     <Live></Live>
     <div class="main-div">
-        <div class="right">
-        <h1>Apple Pie</h1>
-            <div className="to-list">
+        <div class="speech">
             <Recorder onResponse={handleResponse}></Recorder>
-            </div>
         </div>
         </div>
     </>
