@@ -20,7 +20,8 @@ export default function Live(){
         }
       };
     status() },[]);
+    console.log(serverStatus)
     return(
-        <h3>{serverStatus}</h3>
+        <></>
     )
 }

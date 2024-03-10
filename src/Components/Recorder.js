@@ -3,12 +3,14 @@ import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 import axios from "axios";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Api from "./Api";
+import loadingImage from "./loading.gif"; // Import your loading image
 
 export default function Recorder({ onResponse }) {
   const baseLink = "https://applepie-5gox.onrender.com";
   const [status, setStatus] = useState("");
   const [notes, setNotes] = useState("");
   const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(false); // State for loading image
 
   const recorderControls = useAudioRecorder(
     {
@@ -40,16 +42,17 @@ export default function Recorder({ onResponse }) {
       'Content-Type': 'multipart/form-data',
     };
     try {
-      setStatus("Getting Text , Please Wait");
+      setLoading(true); // Show loading image
       const response = await axios.post(url, formData, { headers });
       console.log('File uploaded successfully:', response.data);
       onResponse(response.data.notes);
-      setNotes(response.data.notes);
+      setNotes(documentToReactComponents(response.data.notes));
       extractTodos(response.data.notes);
-      setStatus("Uploaded , Check Console .");
+      setLoading(false); // Hide loading image when data is received
     } catch (error) {
       console.log(error);
-      setStatus("Error Occurred , Check Console");
+      setStatus("Server Loaded, Try Again");
+      setLoading(false); // Hide loading image if there's an error
     }
   }
 
@@ -72,18 +75,20 @@ export default function Recorder({ onResponse }) {
   };
 
   return (
-    <div>
+    <div className="recorder">
       <AudioRecorder
         onRecordingComplete={(blob) => addAudioElement(blob)}
         recorderControls={recorderControls}
         downloadFileExtension="wav"
         showVisualizer={true}
+        classes={"recorderButton"}
       />
       <br />
+      {loading && <img src={loadingImage} alt="Loading" />} {/* Show loading image if loading */}
       <h3>{status}</h3>
       <br />
       <br />
-      <h3>{notes}</h3>
+      <p className="notes">{notes}</p>
       <Api todos={todos} /> {/* Pass the extracted todos to the Api component */}
     </div>
   );

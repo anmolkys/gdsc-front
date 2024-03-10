@@ -18,10 +18,16 @@ export default function App(){
 
 
   return(
-    <div className="main">
-      <Live></Live>
-      <br />
-      <Recorder onResponse={handleResponse}></Recorder>
-    </div>
+    <>
+    <Live></Live>
+    <div class="main-div">
+        <div class="right">
+        <h1>Apple Pie</h1>
+            <div className="to-list">
+            <Recorder onResponse={handleResponse}></Recorder>
+            </div>
+        </div>
+        </div>
+    </>
   )
 }
