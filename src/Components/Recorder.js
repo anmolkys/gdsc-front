@@ -90,7 +90,7 @@ export default function Recorder({ onResponse }) {
       <br />
       <br />
       <p className="notes">{notes}</p>
-      <Api todos={todos} /> {/* Pass the extracted todos to the Api component */}
+      {notes ? <Api todos={todos} /> : ""} {/* Pass the extracted todos to the Api component */}
     </div>
   );
 }
