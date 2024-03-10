@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function Api({ todos }) {
+export default function Api() {
   const [token, setToken] = useState('');
   const [boardId, setBoardId] = useState('');
 
@@ -55,8 +55,13 @@ export default function Api({ todos }) {
   
   const updateBoardWithNotes = async () => {
     try {
+      // Sample notes from parent component
+      const notes = ['Note 1', 'Note 2', 'Note 3'];
+  
       // Get current date
-      const currentDate = new Date().toLocaleDateString();
+      const d = new Date();
+      let time = d.getTime();
+      const currentDate = `Apple ${time}`
   
       // Create a list with the current date
       const listResponse = await fetch(`https://api.trello.com/1/lists?key=40a9bec91fbb5d78a56c454cdb823ff2&token=${token}&name=${currentDate}&idBoard=${boardId}`, {
@@ -64,23 +69,23 @@ export default function Api({ todos }) {
       });
       const listData = await listResponse.json();
   
-      // Append each todo as a card in the created list
-      for (const todo of todos) {
-        await fetch(`https://api.trello.com/1/cards?key=40a9bec91fbb5d78a56c454cdb823ff2&token=${token}&name=${todo}&idList=${listData.id}`, {
+      // Append each note as a card in the created list
+      for (const note of notes) {
+        await fetch(`https://api.trello.com/1/cards?key=40a9bec91fbb5d78a56c454cdb823ff2&token=${token}&name=${note}&idList=${listData.id}`, {
           method: 'POST'
         });
       }
     } catch (error) {
-      console.error('Error updating board with todos:', error);
+      console.error('Error updating board with notes:', error);
     }
   };
   
   
   useEffect(() => {
-    if (boardId && todos.length > 0) {
+    if (boardId) {
       updateBoardWithNotes();
     }
-  }, [boardId, todos]);
+  }, [boardId]);
 
   return (
     <>
