@@ -45,6 +45,7 @@ export default function Recorder({ onResponse }) {
       setLoading(true); // Show loading image
       const response = await axios.post(url, formData, { headers });
       console.log('File uploaded successfully:', response.data);
+      console.log(response.data)
       onResponse(response.data.notes);
       setNotes(documentToReactComponents(response.data.notes));
       extractTodos(response.data.notes);
