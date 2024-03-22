@@ -11,7 +11,7 @@ export default function Recorder({ onResponse }) {
   const [notes, setNotes] = useState("");
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false); // State for loading image
-
+  const [email,setEmail] = useState("");
   const recorderControls = useAudioRecorder(
     {
       noiseSuppression: false,
@@ -37,6 +37,7 @@ export default function Recorder({ onResponse }) {
     const url = `${baseLink}/upload/`;
     const formData = new FormData();
     formData.append('file', blob);
+    formData.append('email',email)
     console.log(`audio_${Date.now()}.wav`);
     const headers = {
       'Content-Type': 'multipart/form-data',
@@ -85,6 +86,7 @@ export default function Recorder({ onResponse }) {
         showVisualizer={true}
         classes={"recorderButton"}
       />
+      <input type="email" placeholder="Enter Email" onChange={(e)=>{setEmail(e.target.value)}} value={email}></input>
       <br />
       {loading && <img src={loadingImage} alt="Loading" />} {/* Show loading image if loading */}
       <h3>{status}</h3>
